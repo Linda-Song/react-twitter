@@ -1,14 +1,14 @@
-import './App.css'
-import { Route,Routes,Navigate } from 'react-router-dom'
+import Router from 'components/Router'
+import { Layout } from 'components/Layout'
+
+
 function App() {
 
   return (
-    <Routes>
-      <Route path='/' element={<h1>Home Page</h1>}></Route>
-
-    </Routes>
-   
-  )
+    <Layout>
+      <Router />
+    </Layout>
+  );
 }
 
 export default App
