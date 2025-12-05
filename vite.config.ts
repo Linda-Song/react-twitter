@@ -11,6 +11,7 @@ export default defineConfig({
       components: path.resolve(__dirname, "src/components"),
       pages: path.resolve(__dirname, "src/pages"),
       firebaseApp: path.resolve(__dirname, "src/firebaseApp"),
+      context: path.resolve(__dirname, "src/components/context"),
     }
   }
 })

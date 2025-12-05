@@ -1,15 +1,30 @@
 import { FiImage } from "react-icons/fi";
-import { useContext, useState } from "react";
-import { collection, addDoc } from "firebase/firestore";
+import { useCallback, useContext, useEffect, useState } from "react";
+import { collection, addDoc, doc, getDoc } from "firebase/firestore";
 import { db } from "firebaseApp";
 import { toast } from "react-toastify";
 import AuthContext from "components/context/AuthContext";
+import { useParams , useNavigate} from "react-router-dom";
+import type { PostProps } from "pages/home";
 
-export default function PostForm() {
+
+export default function PostEditForm() {
+  const params = useParams();
+  const [post, setPost] = useState<PostProps | null>(null);
   const [content, setContent] = useState<string>("");
   const {user} = useContext(AuthContext)
   const handleFileUpload = ()=> {};
+  const navigate = useNavigate();
   
+  const getPost = useCallback(async () => {
+    if(params.id) {
+      const docRef = doc(db,"posts", params.id);
+      const docSnap = await getDoc(docRef);
+      setPost({...(docSnap?.data()as PostProps), id: docSnap.id});
+      setContent(docSnap?.data()?.content);
+    }
+  },[params.id]);
+
   const onSubmit = async( e: any) => {
     e.preventDefault();
 
@@ -24,8 +39,8 @@ export default function PostForm() {
         uid: user?.uid,
         email: user?.email,
       });
-      setContent("");
-      toast.success("게시글을 생성했습니다.")
+      navigate(`/posts/${post?.id}`)
+      toast.success("게시글을 수정하였습니다.")
     }catch(e:any){
       console.log(e);
 
@@ -41,6 +56,9 @@ export default function PostForm() {
     }
   };
 
+  useEffect(() => {
+    if(params.id) getPost();
+  }, [getPost, params.id]);
 
   return (
     <form className="post-form" onSubmit={onSubmit}>
@@ -66,11 +84,11 @@ export default function PostForm() {
           />
           <input
             type="submit"
-            value="Tweet"
+            value="수정"
             className="post-form__submit-btn"
           />
         </div>
       </form>
 
   );
-}
+};

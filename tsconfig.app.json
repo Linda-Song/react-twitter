@@ -28,6 +28,7 @@
       "pages/*": ["pages/*"],
       "components/*": ["components/*"],
       "firebaseApp/*": ["firebaseApp/*"],
+      "context/*": ["components/context/*"],
     }
   },
   "include": ["src"]
