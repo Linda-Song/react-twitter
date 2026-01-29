@@ -8,11 +8,12 @@ import "react-toastify/dist/ReactToastify.css";
 import Loader from "components/loader/Loader";
 
 function App() {
-  const auth = getAuth(app);
+  const auth = getAuth(app); //내가 연결한 app의 로그인 기능을 사용하겠다는 의미
   const [init, setInit] = useState<boolean>(false);
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(
     !!auth?.currentUser
   );
+  
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {

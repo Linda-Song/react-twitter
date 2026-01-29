@@ -2,11 +2,12 @@ import { BsHouse } from "react-icons/bs";
 import { BiUserCircle } from "react-icons/bi";
 import { MdLogout, MdLogin } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
-import AuthContext from "./context/AuthContext";
+import AuthContext from "../context/AuthContext";
 import { useContext } from "react";
 import { getAuth, signOut } from "firebase/auth";
 import { app } from "firebaseApp";
 import { toast } from "react-toastify";
+import { AiOutlineSearch } from "react-icons/ai";
 
 export default function MenuList() {
   const { user } = useContext(AuthContext);
@@ -23,6 +24,10 @@ export default function MenuList() {
         <button type="button" onClick={() => navigate("/profile")}>
           <BiUserCircle />
           Profile
+        </button>
+        <button type="button" onClick={() => navigate("/search")}>
+          <AiOutlineSearch />
+          Search
         </button>
         {user === null ? (
           <button type="button" onClick={() => navigate("/users/login")}>

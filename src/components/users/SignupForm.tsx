@@ -33,7 +33,7 @@ export default function SignupForm() {
       target: { name, value },
     } = e;
 
-    if (name === "email") {
+    if (name === "email") { 
       setEmail(value);
       const validRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
       if (!value?.match(validRegex)) {
@@ -64,27 +64,26 @@ export default function SignupForm() {
     }
   };
 
-  const onClickSocialLogin = async(
-    e:any
-    )=>{
-      const {
-        target: {name},
-      } = e;
-      let provider;
-      const auth = getAuth(app);
-      if(name === "google") {
-        provider = new GoogleAuthProvider();
-      }
-      await signInWithPopup(auth, provider as GoogleAuthProvider
-      )
-      .then(() => {
-        toast.success("로그인 되었습니다.");
-      })
-      .catch((error) => {
-        const errorMessage = error?.message;
-        toast?.error(errorMessage);
-      });
+  const onClickSocialLogin = async(e:any)=>{
+    const {
+      target: {name},
+    } = e;
+    let provider;
+    const auth = getAuth(app);
+
+    if(name === "google") {
+      provider = new GoogleAuthProvider();
     }
+    await signInWithPopup(auth, provider as GoogleAuthProvider
+    )
+    .then(() => {
+      toast.success("로그인 되었습니다.");
+    })
+    .catch((error) => {
+      const errorMessage = error?.message;
+      toast?.error(errorMessage);
+    });
+  }
 
   return (
     <form className="form form--lg" onSubmit={onSubmit}>
