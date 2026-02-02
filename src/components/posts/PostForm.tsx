@@ -79,21 +79,19 @@ export default function PostForm() {
   };
 
   const removeTag = (tag: string) => {
-    setTags(tags?.filter((val) => val !== tag));
+    setTags(tags?.filter((val) => val !==tag));
   };
 
   const onChangeHashTag = (e: any) => {
     setHashTag(e?.target?.value?.trim());
   };
 
-  const handleKeyUp = (e: any) => {
-    if (e.keyCode === 32 && e.target.value.trim() !== "") {
-      // 만약 같은 태그가 있다면 에러를 띄운다
-      // 아니라면 태그를 생성해준다
-      if (tags?.includes(e.target.value?.trim())) {
+  const handleKeyUp = (e:any) => {
+    if(e.keyCode === 32 && e.target.value.trim() !== ""){
+      if(tags?.includes(e.target.value?.trim())){
         toast.error("같은 태그가 있습니다.");
-      } else {
-        setTags((prev) => (prev?.length > 0 ? [...prev, hashTag] : [hashTag]));
+      }else {
+        setTags((prev) => (prev?.length > 0 ? [...prev,hashTag] : [hashTag]));
         setHashTag("");
       }
     }

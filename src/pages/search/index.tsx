@@ -23,6 +23,7 @@ export default function SearchPage() {
         orderBy("createdAt","desc")
        
       );
+      
       onSnapshot(postsQuery, (snapShot) => {
         let dataObj = snapShot?.docs?.map((doc) => ({
           ...doc?.data(),

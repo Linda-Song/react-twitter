@@ -5,7 +5,7 @@ import { db } from "firebaseApp";
 
 import { toast } from "react-toastify";
 import { useNavigate, useParams } from "react-router-dom";
-import { PostProps } from "pages/home";
+import { type PostProps } from "pages/home";
 
 export default function PostEditForm() {
   const params = useParams();
@@ -63,8 +63,7 @@ export default function PostEditForm() {
 
   const handleKeyUp = (e: any) => {
     if (e.keyCode === 32 && e.target.value.trim() !== "") {
-      // 만약 같은 태그가 있다면 에러를 띄운다
-      // 아니라면 태그를 생성해준다
+  
       if (tags?.includes(e.target.value?.trim())) {
         toast.error("같은 태그가 있습니다.");
       } else {
