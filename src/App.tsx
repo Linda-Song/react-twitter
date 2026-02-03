@@ -1,35 +1,41 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState, useEffect } from "react";
+import Router from "components/Router";
+import { Layout } from "components/Layout";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { app } from "firebaseApp";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import Loader from "components/loader/Loader";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const auth = getAuth(app); //내가 연결한 app의 로그인 기능을 사용하겠다는 의미
+  const [init, setInit] = useState<boolean>(false);
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(
+    !!auth?.currentUser
+  );
+  
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setIsAuthenticated(true);
+      } else {
+        setIsAuthenticated(false);
+      }
+      setInit(true);
+    });
+  }, [auth]);
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <Layout>
+      <ToastContainer
+        theme="dark"
+        autoClose={1000}
+        hideProgressBar
+        newestOnTop
+      />
+      {init ? <Router isAuthenticated={isAuthenticated} /> : <Loader />}
+    </Layout>
+  );
 }
 
-export default App
+export default App;
