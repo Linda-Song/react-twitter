@@ -3,7 +3,6 @@ import { collection, addDoc } from "firebase/firestore";
 import { getDownloadURL, ref, uploadString } from "firebase/storage";
 import { FiImage } from "react-icons/fi";
 import { db, storage } from "firebaseApp";
-
 import { toast } from "react-toastify";
 import AuthContext from "context/AuthContext";
 import { v4 as uuidv4 } from "uuid";
@@ -16,20 +15,19 @@ export default function PostForm() {
   const [tags, setTags] = useState<string[]>([]);
   const { user } = useContext(AuthContext);
 
-  const handleFileUpload = (e: any) => {
+  const handleFileUpload = (e:any) => {
     const {
-      target: { files },
+      target:{files},
     } = e;
-
     const file = files?.[0];
     const fileReader = new FileReader();
     fileReader?.readAsDataURL(file);
-
-    fileReader.onloadend = (e: any) => {
-      const { result } = e?.currentTarget;
+    
+    fileReader.onloadend = (e:any) => {
+      const {result} = e?.currentTarget;
       setImageFile(result);
-    };
-  };
+    }
+  }
 
   const onSubmit = async (e: any) => {
     setIsSubmitting(true);
@@ -97,7 +95,7 @@ export default function PostForm() {
     }
   };
 
-  const handleDeleteImage = () => {
+  const handleDeleteImage = ()=>{
     setImageFile(null);
   };
 
