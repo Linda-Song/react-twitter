@@ -92,11 +92,6 @@ body {
       background-color: transparent;
       padding: 16px 0px;
       backdrop-filter: blur(10px);
-
-      svg {
-        backdrop-filter: blur(10px);
-        background-color: transparent;
-      }
     }
   }
 }
@@ -324,36 +319,6 @@ body {
     display: flex;
     gap: 4px;
     align-items: center;
-
-    &--between {
-      display: flex;
-      width: 100%;
-      justify-content: space-between;
-    }
-  }
-
-  &__follow-btn {
-    @extend .button;
-    background-color: $white;
-    color: $activeBorder;
-
-    &:hover,
-    &:focus {
-      background-color: $activeBorder;
-      color: $white;
-    }
-  }
-
-  &__following-btn {
-    @extend .button;
-    background-color: $activeBorder;
-    color: $white;
-
-    &:hover,
-    &:focus {
-      background-color: $white;
-      color: $activeBorder;
-    }
   }
 
   &__email,
